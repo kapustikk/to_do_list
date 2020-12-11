@@ -1,0 +1,14 @@
+[
+  {
+    "id": "id-1",
+    "text": "Сделать 1 часть домашнего задания №2",
+    "completed": false
+  },
+  { "id": "id-2", "text": "Пропылесосить квартиру", "completed": false },
+  { "id": "id-3", "text": "Сварить суп", "completed": false },
+  {
+    "id": "id-4",
+    "text": "Выложить пост с английскими фразами",
+    "completed": false
+  }
+]
