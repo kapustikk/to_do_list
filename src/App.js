@@ -2,14 +2,45 @@ import React, { Component } from 'react';
 import shortid from 'shortid';
 import TodoList from './components/Todolist';
 import TodoEditor from './components/TodoEditor';
-import todo from './components/Todo.json';
 import Filter from './components/Filter';
+import Modal from './components/Modal';
+import IconBtn from './components/IconBtn';
+import { ReactComponent as AddIcon } from './icons/plus.svg';
+// import todo from './components/Todo.json';
 
 class App extends Component {
   state = {
-    todos: todo,
+    todos: [],
     filter: '',
+    showModal: false,
   };
+
+  componentDidMount() {
+    // console.log('App componentDidMount')
+
+    const todos = localStorage.getItem('todos');
+    const parsedTodos = JSON.parse(todos);
+
+    if (parsedTodos) {
+      this.setState({ todos: parsedTodos });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('App componentDidUpdate')
+
+    if (this.state.todos !== prevState.todos) {
+      // console.log('Обновилось поле todos');
+
+      localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
+    if (
+      this.state.todos.length > prevState.todos.length &&
+      prevState.todos.length !== 0
+    ) {
+      this.toggleModal();
+    }
+  }
 
   addTodo = text => {
     const todo = {
@@ -21,6 +52,8 @@ class App extends Component {
     this.setState(prevState => ({
       todos: [todo, ...prevState.todos],
     }));
+    // this.toggleModal();
+    // или так или как в методе ComponentDidUpdate мы сравниваем длину тудушек
   };
 
   deleteTodo = todoId => {
@@ -52,8 +85,14 @@ class App extends Component {
     );
   };
 
+  toggleModal = () => {
+    this.setState(state => ({
+      showModal: !state.showModal,
+    }));
+  };
+
   render() {
-    const { todos, filter } = this.state;
+    const { todos, filter, showModal } = this.state;
     const totalTodo = todos.length;
     const completedTodos = todos.reduce(
       (total, todo) => (todo.completed ? total + 1 : total),
@@ -65,12 +104,24 @@ class App extends Component {
 
     return (
       <>
+        <IconBtn onClick={this.toggleModal} aria-label="Add new todo">
+          <AddIcon width="30" height="30" fill="#fff" />
+        </IconBtn>
         <div>
           <p>Общее кол-во дел: {totalTodo}</p>
           <p>Кол-во выполненных дел: {completedTodos}</p>
+          {/* <button type="button" onClick={this.toggleModal}>Add</button> */}
         </div>
 
-        <TodoEditor onSubmit={this.addTodo} />
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <TodoEditor onSubmit={this.addTodo} />
+
+            <button type="button" onClick={this.toggleModal}>
+              Close
+            </button>
+          </Modal>
+        )}
 
         <Filter value={filter} onChange={this.changeFilter} />
 
