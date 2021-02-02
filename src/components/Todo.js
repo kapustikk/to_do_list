@@ -3,14 +3,14 @@ import s from './Todolist.module.css';
 import { ReactComponent as DeleteIcon } from '../icons/remove.svg';
 import IconBtn from './IconBtn';
 
-const Todo = ({ text, completed, onToogleCompleated, onDelete }) => {
+const Todo = ({ text, completed, onToogleCompleted, onDelete }) => {
   return (
     <>
       <input
         type="checkbox"
         className={s.checkbox}
         checked={completed}
-        onChange={onToogleCompleated}
+        onChange={onToogleCompleted}
       />
       <p className={s.todoText}>{text}</p>
       <IconBtn onClick={onDelete} aria-label="Delete todo">
