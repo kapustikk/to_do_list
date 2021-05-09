@@ -138,3 +138,11 @@ textarea:focus {
   align-items: center;
   justify-content: center;
 }
+
+.stats {
+  margin-left: 40px;
+}
+
+.total {
+  margin-left: 20px;
+}

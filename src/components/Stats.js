@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import s from './Todolist.module.css';
+import s from './Todolist.module.css';
 
 const Stats = ({ total, completed }) => (
-  <div>
+  <div className={s.stats}>
     <p>
       <span>{total}</span>
-      <span>Всего</span>
+      <span className={s.total}>Всего</span>
     </p>
     <p>
       <span>{completed}</span>
-      <span>Выполненно</span>
+      <span className={s.total}>Выполненно</span>
     </p>
   </div>
 );

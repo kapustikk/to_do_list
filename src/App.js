@@ -103,7 +103,7 @@ class App extends Component {
     // const filteredTodos = this.state.todos.filter(todo => todo.text.toLowerCase().includes(normalizedFilter),);
 
     return (
-      <>
+      <div class="main">
         <IconBtn onClick={this.toggleModal} aria-label="Add new todo">
           <AddIcon width="30" height="30" fill="#fff" />
         </IconBtn>
@@ -118,7 +118,7 @@ class App extends Component {
         {/* <Filter value={filter} onChange={this.changeFilter} /> */}
         <Filter />
         <TodoList />
-      </>
+      </div>
     );
   }
 }
